@@ -1,4 +1,4 @@
-## 概要
+## 简介
 
 本教程主要是指导用户在PlatON上使用wasm语言创建简单的HelloWorld智能合约，通过platon-truffle编译，部署，调用此合约。
 
