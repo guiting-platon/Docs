@@ -93,7 +93,7 @@ Truffle-config.js content is  as follows:
 ```
 compilers: {
       solc: {
-            version: "^0.5.13",    // same as the version declared in HelloWorld.sol
+            version: "0.5.13",    // same as the version declared in HelloWorld.sol
       }
 }
 ```

@@ -84,7 +84,7 @@ mkdir HelloWorld && cd HelloWorld
 **Step2.**  Init project
 
 ```
-truffle init
+platon-truffle init
 ```
 After the command is executed, project directory structure is as follows:
 
@@ -121,7 +121,7 @@ compilers: {
 **Step5.**  Compile contract
 
 ```
-truffle compile
+platon-truffle compile
 ```
 After the command is executed, project directory structure is as follows:
 
@@ -153,7 +153,7 @@ networks: {
 **Step2.** Deploy contract
 
 ```
-truffle deploy --wasm --contract-name HelloWorld --params '[[["1"], "2", "3"]]'
+platon-truffle deploy --wasm --contract-name HelloWorld --params '[[["1"], "2", "3"]]'
 ```
 - `HelloWorld` deployed contract
 - `params` parameters of contract init function
@@ -195,7 +195,7 @@ receipt:  { blockHash:
 **Step1.**  Enter the platon-truffle console
 
 ```
-truffle console
+platon-truffle console
 ```
 - You can execute command in platon-truffle console
 
