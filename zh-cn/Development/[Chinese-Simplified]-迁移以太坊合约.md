@@ -190,7 +190,7 @@ mkdir example && cd example
 **step2.** 使用platon-truffle初始化一个工程
 
 ```
-truffle init
+platon-truffle init
 ```
 
 在操作完成之后，就有这样的一个项目结构：
@@ -229,7 +229,7 @@ module.exports = {
 
   compilers: {
     solc: {
-       version: "^0.5.13",    // 编译合约所使用的solidity版本号，与合约定义版本一致
+       version: "0.5.13",    // 编译合约所使用的solidity版本号，与合约定义版本一致
        docker: false,        // Use "0.5.1" you've installed locally with docker
     }
   }
@@ -239,7 +239,7 @@ module.exports = {
 **step5.** 编译合约
 
 ```
-truffle compile
+platon-truffle compile
 ```
 编译成功输出如下信息：
 ```
@@ -271,7 +271,7 @@ module.exports = function(deployer) {
 **step7.** 部署合约
 
 ```
-truffle migratte
+platon-truffle migrate
 ```
 
 输出结果如下，表示迁移成功
@@ -299,3 +299,4 @@ Summary
  Total deployments:   2
  Final cost:          0.037844150003027532 LAT
 ```
+

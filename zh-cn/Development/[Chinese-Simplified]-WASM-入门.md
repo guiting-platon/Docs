@@ -7,7 +7,7 @@
 
 platon-truffle是PlatON提供的一款能够在本地编译、部署、调用智能合约的工具，具体的安装及使用手册参见
 
-- platon-truffle开发工具[安装参考](https://github.com/PlatONnetwork/platon-truffle/tree/feature/wasm)
+- platon-truffle开发工具[安装参考](https://platon-truffle.readthedocs.io/en/v0.1.0/index.html)
 - platon-truffle开发工具[使用手册](https://platon-truffle.readthedocs.io/en/v0.1.0/index.html)
 
 
@@ -85,7 +85,7 @@ mkdir HelloWorld && cd HelloWorld
 **step2.** 使用platon-truffle初始化一个工程
 
 ```
-truffle init
+platon-truffle init
 ```
 在操作完成之后，就有如下项目结构：
 
@@ -121,7 +121,7 @@ compilers: {
 **step5.** 编译合约
 
 ```
-truffle compile
+platon-truffle compile
 ```
 在操作完成之后，生成如下目录结构：
 
@@ -195,7 +195,7 @@ receipt:  { blockHash:
 **step1.**  进入platon-truffle控制台
 
 ```
-truffle console
+platon-truffle console
 ```
 - 以下调用查询将在platon-truffle控制台中进行
 

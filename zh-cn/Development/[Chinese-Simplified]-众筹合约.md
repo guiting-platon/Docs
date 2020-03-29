@@ -153,7 +153,7 @@ mkdir myCrowdFunding && cd myCrowdFunding
 **step2.** 使用platon-truffle初始化一个工程
 
 ```
-truffle init
+platon-truffle init
 ```
 
 在操作完成之后，就有这样的一个项目结构：
@@ -188,7 +188,7 @@ compilers: {
 **step5.** 编译合约
 
 ```
-truffle compile
+platon-truffle compile
 ```
 
 在操作完成之后，就有这样的一个目录结构：
@@ -209,7 +209,7 @@ cd migrations/ && touch 2_initial_CrowdFunding.js
 ```
 const CrowdFunding = artifacts.require("CrowdFunding"); //需要部署的合约名称 
 module.exports = function(deployer) {
-  ​    deployer.deploy(CrowdFunding);
+      deployer.deploy(CrowdFunding);
 };
 ```
 
@@ -237,7 +237,7 @@ networks: {
 **step3.**  部署合约
 
 ```
-truffle migrate
+platon-truffle migrate
 ```
 
 部署成功将输出如下信息：
@@ -270,7 +270,7 @@ Compiling your contracts...
 **step1.**  进入platon-truffle控制台
 
 ```
-truffle console
+platon-truffle console
 ```
 - 以下调用查询将在truffle控制台中进行
 
@@ -278,7 +278,7 @@ truffle console
 ```
 var abi = [...]; //众筹合约的ABI，从编译后的文件获取
 var contractAddr = '0x02D04C6fD2b0C07c43AA1a329D667f1F1Fc7a907'; //众筹合约地址
-var crowdFunding = new web3.eth.Contract(abi,contractAddr); 
+var crowdFunding = new web3.platon.Contract(abi,contractAddr); 
 ```
 
 **step3.**  查询已筹集金额

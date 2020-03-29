@@ -9,7 +9,7 @@
 
 platon-truffle是PlatON提供的一款能够在本地编译、部署、调用智能合约的工具，具体的安装及使用手册参见
 
-- platon-truffle开发工具[安装参考](https://github.com/PlatONnetwork/platon-truffle/tree/feature/wasm)
+- platon-truffle开发工具[安装参考](https://platon-truffle.readthedocs.io/en/v0.1.0/index.html)
 - platon-truffle开发工具[使用手册](https://platon-truffle.readthedocs.io/en/v0.1.0/index.html)
 
 
@@ -68,7 +68,7 @@ mkdir HelloWorld && cd HelloWorld
 **step2.** 使用platon-truffle初始化一个工程
 
 ```
-truffle init
+platon-truffle init
 ```
 在操作完成之后，就有如下项目结构：
 
@@ -104,7 +104,7 @@ compilers: {
 **step5.** 编译合约
 
 ```
-truffle compile
+platon-truffle compile
 ```
 在操作完成之后，生成如下目录结构：
 
@@ -149,7 +149,7 @@ networks: {
 **step3.**  部署合约
 
 ```
-truffle migrate
+platon-truffle migrate
 ```
 
 部署成功后，将看到类似如下信息：
@@ -177,7 +177,7 @@ Total cost:     0.007462350000596988 LAT
 **step1.**  进入platon-truffle控制台
 
 ```
-truffle console
+platon-truffle console
 ```
 - 以下调用查询将在truffle控制台中进行
 
@@ -187,7 +187,7 @@ truffle console
 var abi = [{"constant":false,"inputs":[{"internalType":"string","name":"_name","type":"string"}],"name":"setName","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getName","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]; //可以从HelloWorld/build/contracts/HelloWorld.json文件中获取到
 
 var contractAddr = '0x9A5015F9A3728ff64f401b9B93E98078BdD48FD1';//部署合约时的获取的地址
-var helloWorld = new web3.eth.Contract(abi,contractAddr); 
+var helloWorld = new web3.platon.Contract(abi,contractAddr); 
 ```
 
 说明： 
@@ -245,3 +245,4 @@ helloWorld.methods.getName().call(null,function(error,result){console.log("name 
 - `getName` 是我们HelloWorld合约中的一个方法，该方法没有入参，故入参为空
 - `call` 指明是查询方法
 - `function` 是一个回调函数，将处理调用后的结果，此处我们通过console.log打印出执行结果
+

@@ -6,7 +6,7 @@ This tutorial is mainly to guide users to create a simple HelloWorld smart contr
 
 Platon-truffle is a tool provided by PlatON that can compile, deploy, and invoke smart contracts locally. For specific installation and usage manuals, refer to:
 
-- Platon-truffle develop tools[specific installation](https://github.com/PlatONnetwork/platon-truffle/tree/feature/evm)
+- Platon-truffle develop tools[specific installation](https://platon-truffle.readthedocs.io/en/v0.1.0/index.html)
 - Platon-truffle develop tools[usage manuals](https://platon-truffle.readthedocs.io/en/v0.1.0/index.html)
 
 
@@ -64,7 +64,7 @@ mkdir HelloWorld && cd HelloWorld
 **Step2.**  Init project
 
 ```
-truffle init
+platon-truffle init
 ```
 After the command is executed, project directory structure is as follows:
 
@@ -101,7 +101,7 @@ compilers: {
 **Step5.**  Compile contract
 
 ```
-truffle compile
+platon-truffle compile
 ```
 After the command is executed, project directory structure is as follows:
 
@@ -147,7 +147,7 @@ networks: {
 **Step3.**  Deploy contract
 
 ```
-truffle migrate
+platon-truffle migrate
 ```
 
 If deploy success，you wil see log info as follows:
@@ -175,7 +175,7 @@ Total cost:     0.007462350000596988 LAT
 **Step1.**  Enter the platon-truffle console
 
 ```
-truffle console
+platon-truffle console
 ```
 - You can execute command in platon-truffle console
 
@@ -185,7 +185,7 @@ truffle console
 var abi = [{"constant":false,"inputs":[{"internalType":"string","name":"_name","type":"string"}],"name":"setName","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getName","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]; //you can refet to HelloWorld/build/contracts/HelloWorld.json
 
 var contractAddr = '0x9A5015F9A3728ff64f401b9B93E98078BdD48FD1';//contract address
-var helloWorld = new web3.eth.Contract(abi,contractAddr); 
+var helloWorld = new web3.platon.Contract(abi,contractAddr); 
 ```
 
 Description： 

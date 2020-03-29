@@ -184,7 +184,7 @@ mkdir example && cd example
 **Step2.**  Init project
 
 ```
-truffle init
+platon-truffle init
 ```
 
 After the command is executed,project directory structure is as follows:
@@ -223,7 +223,7 @@ module.exports = {
 
   compilers: {
     solc: {
-       version: "^0.5.13",    // the version number used in compiling the contract is the same as the contract definition
+       version: "0.5.13",    // the version number used in compiling the contract is the same as the contract definition
        docker: false,        // Use "0.5.1" you've installed locally with docker
     }
   }
@@ -233,7 +233,7 @@ module.exports = {
 **Step5.** Compile contract
 
 ```
-truffle compile
+platon-truffle compile
 ```
 The following is the output of the successful compilation：
 ```
@@ -265,7 +265,7 @@ module.exports = function(deployer) {
 **Step7.** Deploy contract
 
 ```
-truffle migratte
+platon-truffle migrate
 ```
 
 If deploy success，you wil see log info as follows:

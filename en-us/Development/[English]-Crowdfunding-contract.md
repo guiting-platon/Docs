@@ -153,7 +153,7 @@ mkdir myCrowdFunding && cd myCrowdFunding
 **Step2.** Init project
 
 ```
-truffle init
+platon-truffle init
 ```
 
 After the command is executed, project directory structure is as follows:
@@ -180,7 +180,7 @@ Truffle-config.js content is  as follows:
 ```
 compilers: {
      solc: {
-        version: "^0.5.13",    //same as the version declared in CrowdFunding.sol
+        version: "0.5.13",    //same as the version declared in CrowdFunding.sol
     }
 }
 ```
@@ -188,7 +188,7 @@ compilers: {
 **Step5.** Compile contract
 
 ```
-truffle compile
+platon-truffle compile
 ```
 
 After the command is executed, project directory structure is as follows:
@@ -237,7 +237,7 @@ networks: {
 **Step3.** Deploy contract
 
 ```
-truffle migrate
+platon-truffle migrate
 ```
 
 If deploy success, you wil see log info as follows:
@@ -270,7 +270,7 @@ Compiling your contracts...
 **Step1.**  Enter the platon-truffle console
 
 ```
-truffle console
+platon-truffle console
 ```
 
 > You can execute command in platon-truffle console
@@ -280,7 +280,7 @@ truffle console
 ```
 var abi = [...]; //ABI of CrowdFunding contract,can get from build/contracts/CrowdFunding.json
 var contractAddr = '0x02D04C6fD2b0C07c43AA1a329D667f1F1Fc7a907'; //CrowdFundsing contract address
-var crowdFunding = new web3.eth.Contract(abi,contractAddr); 
+var crowdFunding = new web3.platon.Contract(abi,contractAddr); 
 ```
 
 **Step3.**  Query the amount raised
