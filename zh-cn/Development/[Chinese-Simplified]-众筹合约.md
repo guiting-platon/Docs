@@ -24,8 +24,8 @@ pragma solidity ^0.5.13;
 
 contract CrowdFunding {
     address payable public beneficiaryAddress = address(0x0); //受益人地址，设置为合约创建者
-    uint256 public fundingGoal = 100 LAT;  //众筹目标，单位是LAT
-    uint256 public amountRaised = 0; //已筹集金额数量， 单位是VON
+    uint256 public fundingGoal = 100 lat;  //众筹目标，单位是lat
+    uint256 public amountRaised = 0; //已筹集金额数量， 单位是von
     uint256 public deadline; //截止时间
     uint256 public price;  //代币价格
     bool public fundingGoalReached = false;  //达成众筹目标
@@ -58,7 +58,7 @@ contract CrowdFunding {
         uint _durationInMinutes
     )public {
 	    beneficiaryAddress = msg.sender;
-        fundingGoal = _fundingGoalInlats * 1 LAT;
+        fundingGoal = _fundingGoalInlats * 1 lat;
         deadline = now + _durationInMinutes * 1 minutes;
         price = 500 finney; //1个LAT币可以买 2 个代币
     }
@@ -180,7 +180,7 @@ truffle-config.js 修改部分内容如下
 ```
 compilers: {
      solc: {
-        version: "^0.5.13",    // 此版本号与CrowdFunding.sol中声明的版本号保持一致
+        version: "0.5.13",    // 此版本号与CrowdFunding.sol中声明的版本号保持一致
     }
 }
 ```
@@ -227,7 +227,7 @@ networks: {
        host: "10.1.1.6",     // 区块链所在服务器主机
        port: 8806,            // 链端口号
        network_id: "*",       // Any network (default: none)
-       from: "0xf644cfc3b0dc588116d6621211a82c1ef9c62e9e", //部署合约账号的钱包地址
+       from: "c1f330b214668beac2e6418dd651b09c759a4bf5", //部署合约账号的钱包地址
        gas: 90000000,
        gasPrice: 50000000004,
 	},

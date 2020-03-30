@@ -98,6 +98,7 @@ platon-truffle init
 - truffle-config.js: platon-truffle 配置文件
 
 **step3.** 将之前编写好的HelloWorld合约放至HelloWorld/contracts/目录下
+
 ```
 ls contracts/
 ```
@@ -153,7 +154,7 @@ networks: {
 **step2.** 部署HelloWorld合约
 
 ```
-truffle deploy --wasm --contract-name HelloWorld --params '[[["1"], "2", "3"]]'
+platon-truffle deploy --wasm --contract-name HelloWorld --params '[[["1"], "2", "3"]]'
 ```
 - `HelloWorld` :要部署的合约
 - `params` :合约init函数对应的参数 
@@ -277,3 +278,4 @@ helloworld.methods.get_message_body(0).call()
 - `methods` 指定将获取合约中的方法
 - `get_message_body` 是我们HelloWorld合约中的一个方法，该方法有一个int类型的入参
 - `call` 指明是查询方法
+

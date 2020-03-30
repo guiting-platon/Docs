@@ -210,7 +210,7 @@ ls contracts/
 ```
 
 - 将看到 ERC200513Token.sol
-- PlatON智能合约中的货币单位为LAT和VON。要将以太坊智能合约迁移至PlatON，请将以太币面额更改为PlatON面额。同时注意以太/LAT市场汇率（此合约我们假设市场汇率1:1，将uint256 public totalSupply = 10000000000000000000 ether; 修改成uint256 public totalSupply = 10000000000000000000 LAT; ）
+- PlatON智能合约中的货币单位为LAT和VON。要将以太坊智能合约迁移至PlatON，请将以太币面额更改为PlatON面额。同时注意以太/LAT市场汇率（此合约我们假设市场汇率1:1，将uint256 public totalSupply = 10000000000000000000 ether; 修改成uint256 public totalSupply = 10000000000000000000 lat; ）
 
 **step4.** 修改truffle-config.js中的编译版本号及链相关配制
 
@@ -280,23 +280,30 @@ platon-truffle migrate
 Compiling your contracts...
 Everything is up to date, there is nothing to compile.
 2_initial_ERC200513Token.js
+===========================
+
    Deploying 'ERC200513Token'
-     transaction hash:    0xa1770aecf4cffb0e75a172e06e75a9e9cb2d36bf89291b57d504e8c054985e99
-     Blocks: 0            Seconds: 0
-     contract address:    0x5474608c5dee5039C95FEf3D7e48Fa793903Ce99//迁移后的合约地址
-     block number:        265657
-     block timestamp:     1581742216965
-     account:             0xF644CfC3b0Dc588116D6621211a82C1Ef9c62E9e
-     balance:             90000000.826385379994114416
-     gas used:            638876
-     gas price:           50.000000004 gVON
-     value sent:          0 LAT
-     total cost:          0.031943800002555504 LAT
-     Saving migration to chain.
-     Saving artifacts
-     Total cost:     0.031943800002555504 LAT
+   --------------------------
+   > transaction hash:    0x5667101234fcd3b9dadf96a19bce20d1b94d742e0fd8f3528c641fa587b17eb3
+   > Blocks: 0            Seconds: 0
+   > contract address:    0xE6570bAc355875F7EBcBFBD59a9AB1a0485ec869
+   > block number:        2153
+   > block timestamp:     1585538899787
+   > account:             0xC1f330B214668beAc2E6418Dd651B09C759a4Bf5
+   > balance:             4499992.02433
+   > gas used:            641243
+   > gas price:           10000 gvon
+   > value sent:          0 LAT
+   > total cost:          6.41243 LAT
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:             6.41243 LAT
+
 Summary
- Total deployments:   2
- Final cost:          0.037844150003027532 LAT
+=======
+> Total deployments:   2
+> Final cost:          7.55566 LAT
 ```
 

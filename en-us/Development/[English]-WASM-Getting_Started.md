@@ -144,8 +144,8 @@ networks: {
        port: 8806,            // server port
        network_id: "*",       // Any network (default: none)
        from: "0x5b37dabedae06edb142257819fad207199986992",
-       gas: 90000000,
-       gasPrice: 50000000004,
+       gas: 4712388,
+       gasPrice: 1000000000,
 	},
 }
 ```

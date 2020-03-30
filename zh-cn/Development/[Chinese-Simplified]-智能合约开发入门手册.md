@@ -96,7 +96,7 @@ truffle-config.js 修改部分内容如下：
 ```
 compilers: {
       solc: {
-            version: "^0.5.13",    // 此版本号与HelloWorld.sol中声明的版本号保持一致
+            version: "0.5.13",    // 此版本号与HelloWorld.sol中声明的版本号保持一致
       }
 }
 ```
@@ -155,21 +155,32 @@ platon-truffle migrate
 部署成功后，将看到类似如下信息：
 ```
 2_initial_helloword.js
-Deploying 'HelloWorld'
-transaction hash:    0x2bb5c7f6202225554a823db410fb16cf0c8328a51391f24fb9052a6a8f3033e3 //部署合约对应的交易hash
-Blocks: 0            Seconds: 0
-contract address:    0x714E74eEc4b63D9DB72cbB5F78CDD5b5bb60F9dc  //合约地址（后面合约部署将会使用到）
-block number:        142522  //交易对应的块号
-block timestamp:     1581667696206
-account:             0xF644CfC3b0Dc588116D6621211a82C1Ef9c62E9e //部署合约所使用的账号
-balance:             90000000.867724449997417956  //部署合约账户对应的余额
-gas used:            149247 //本次部署gas消息
-gas price:           50.000000004 gVON
-value sent:          0 LAT
-total cost:          0.007462350000596988 LAT
-Saving migration to chain.
-Saving artifacts
-Total cost:     0.007462350000596988 LAT
+======================
+
+   Deploying 'HelloWorld'
+   ----------------------
+   > transaction hash:    0x87cd48cc467f9bc943fd096c57c8a7e7b7fa941380538d9e59797800c6c4292c
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x0680df2d6e38e5a6C89e3856836E017c6572DAb2
+   > block number:        282520
+   > block timestamp:     1585535169200
+   > account:             0xC1f330B214668beAc2E6418Dd651B09C759a4Bf5
+   > balance:             16447231233352977496646259638377769924557918764752765436645.336513079692286014
+   > gas used:            145569
+   > gas price:           10000 gvon
+   > value sent:          0 LAT
+   > total cost:          1.45569 LAT
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:             1.45569 LAT
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          2.59892 LAT
 ```
 
 ## 调用HelloWorld合约
@@ -186,7 +197,7 @@ platon-truffle console
 ```json
 var abi = [{"constant":false,"inputs":[{"internalType":"string","name":"_name","type":"string"}],"name":"setName","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getName","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]; //可以从HelloWorld/build/contracts/HelloWorld.json文件中获取到
 
-var contractAddr = '0x9A5015F9A3728ff64f401b9B93E98078BdD48FD1';//部署合约时的获取的地址
+var contractAddr = '0x0680df2d6e38e5a6C89e3856836E017c6572DAb2';//部署合约时的获取的地址
 var helloWorld = new web3.platon.Contract(abi,contractAddr); 
 ```
 
@@ -199,7 +210,7 @@ var helloWorld = new web3.platon.Contract(abi,contractAddr);
 
 ```javascript
 helloWorld.methods.setName("hello world").send({
-	from: '0xf644cfc3b0dc588116d6621211a82c1ef9c62e9e'
+	from: 'c1f330b214668beac2e6418dd651b09c759a4bf5'
  }).on('receipt', function(receipt) {
  	console.log(receipt);
  }).on('error', console.error);
@@ -216,21 +227,21 @@ helloWorld.methods.setName("hello world").send({
 函数调用成功，将会看到如下信息：
 
 ```
-{ 
-  blockHash:'0x3ae287d1e745e30d0d6c95d5220cc7816cda955e7b2f013c6a531ed95028a794', //交易所在的区块hash
-  blockNumber: 159726, //交易所在的块号
+{ blockHash:
+  '0xe592a4f203ed058df7515205717f167848b1a56b8bb143f9eba512facae22aa1',
+  blockNumber: 283911,
   contractAddress: null,
   cumulativeGasUsed: 44820,
-  from: '0xf644cfc3b0dc588116d6621211a82c1ef9c62e9e', //调用者地址
-  gasUsed: 44820, //gas消耗
+  from: '0xc1f330b214668beac2e6418dd651b09c759a4bf5',
+  gasUsed: 44820,
   logsBloom:
-   '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
+'0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
   status: true,
-  to: '0x9a5015f9a3728ff64f401b9b93e98078bdd48fd1', //交易调用的合约地址
-  transactionHash:'0xb7a41f72d555d4a2d9f2954fbdc5bbbb4c5ce89c836f8704276419ed416b3866', //交易hash
+  to: '0x0680df2d6e38e5a6c89e3856836e017c6572dab2',//交易调用的合约地址
+  transactionHash:
+   '0x2b381a8efab4774ae029fdf2e2585b48c03c033c64d543c9c606c925689fca31',//交易hash
   transactionIndex: 0,
-  events: {} 
-}
+  events: {} }
 ```
 
 **step4.**  合约查询
