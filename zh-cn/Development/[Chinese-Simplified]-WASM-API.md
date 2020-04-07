@@ -1,4 +1,4 @@
-## 区块api
+## 区块Api
 
 ### platon_block_hash()
 
@@ -136,7 +136,20 @@ Address platon::platon_address()
 * **返回值**
   * 合约地址
 
-## 帐户api
+## 帐户Api
+
+### make_address()
+
+```cpp
+template <size_t M> Address make_address(const char (&str)[M])
+```
+
+将C风格字符串转换为地址对象。
+
+* **参数**
+  * `str：` C风格字符串
+* **返回值**
+  * 地址对象
 
 ### platon_balance()
 
@@ -737,56 +750,235 @@ Value& platon::db::Map< TableName, Key, Value >::operator[] ( const Key & k)`
   * `template<Name::Raw TableName, typename Key , typename Value >
 const std::string platon::db::Map< TableName, Key, Value >::kType = "__map__"`
 
-### platon::db::MultiIndex< TableName, T, Indices >::Index< IndexName, Extractor, Number, IndexTypeName > 模板类
+### template<Name::Raw TableName, typename T, typename... Indices> class platon::db::MultiIndex< TableName, T, Indices >
 
-* **公共类型**
-  * `enum   Constants { kTableName = static_cast<uint64_t>(TableName), kIndexName = static_cast<uint64_t>(IndexName), kIndexNumber = Number }`
+MultiIndex支持惟一索引和普通索引。惟一索引应该放在参数的第一个位置。结构需要提供与index字段对应的get函数。
 
-  * `typedef Extractor  SecondaryExtractorType`
+* **成员函数功能**
+  * `template<Name::Raw TableName, typename T , typename... Indices>const_iterator platon::db::MultiIndex< TableName, T, Indices >::cbegin()`
+开始迭代器
 
-  * `typedef std::decay< decltype(Extractor()(nullptr))>::type  SecondaryKeyType`
+    * **返回值**
+      * const_iterator
+    * **示例：**
 
-* **静态成员函数**
-  * `static bool unique ()`
-
-  * `static uint64_t  index_name ()`
-
-  * `static uint64_t  table_name ()`
-
-  * `static uint64_t  index_number ()`
-
-  * `static auto  extract_secondary_key (const T &obj)`
-
-* **成员Typedef**
-
-  * `template<Name::Raw TableName, typename T , typename... Indices>
-template<Name::Raw IndexName, typename Extractor , uint64_t Number, typename IndexTypeName >
-typedef Extractor platon::db::MultiIndex< TableName, T, Indices >::Index< IndexName, Extractor, Number, IndexTypeName >::SecondaryExtractorType`
-
-  * `template<Name::Raw TableName, typename T , typename... Indices>
-template<Name::Raw IndexName, typename Extractor , uint64_t Number, typename IndexTypeName >
-typedef std::decay<decltype(Extractor()(nullptr))>::type platon::db::MultiIndex< TableName, T, Indices >::Index< IndexName, Extractor, Number, IndexTypeName >::SecondaryKeyType`
-
-* **Member Function Documentation**
-  * `template<Name::Raw TableName, typename T , typename... Indices>
-template<Name::Raw IndexName, typename Extractor , uint64_t Number, typename IndexTypeName >
-static auto platon::db::MultiIndex< TableName, T, Indices >::Index< IndexName, Extractor, Number, IndexTypeName >::extract_secondary_key ( const T & obj )`
+    ```cpp
+      struct Member {
+      std::string name;
+      uint8_t age;
+      uint8_t sex;
+      uint64_t $seq_;
+      std::string Name() const { return name; }
+      uint8_t Age() const { return age; }
+      PLATON_SERIALIZE(Member, (name)(age)(sex))
+    };
+    MultiIndex<
+      "table"_n, Member,
+      IndexedBy<"index"_n, IndexMemberFun<Member, std::string, &Member::Name,
+                                          IndexType::UniqueIndex>>,
+      IndexedBy<"index2"_n, IndexMemberFun<Member, uint8_t, &Member::Age,
+                                          IndexType::NormalIndex>>>
+      member_table;
+    for (auto it = member_table.cbegin(); it != it_end; ++it){}
+    ```
 
   * `template<Name::Raw TableName, typename T , typename... Indices>
-template<Name::Raw IndexName, typename Extractor , uint64_t Number, typename IndexTypeName >
-static uint64_t platon::db::MultiIndex< TableName, T, Indices >::Index< IndexName, Extractor, Number, IndexTypeName >::index_name ()`
+const_iterator platon::db::MultiIndex< TableName, T, Indices >::cend()`
+结束迭代器
 
-  * `template<Name::Raw TableName, typename T , typename... Indices>
-template<Name::Raw IndexName, typename Extractor , uint64_t Number, typename IndexTypeName >
-static uint64_t platon::db::MultiIndex< TableName, T, Indices >::Index< IndexName, Extractor, Number, IndexTypeName >::index_number ()`
+    * **返回值**
+      * const_iterator
+    * **示例：**
 
-  * `template<Name::Raw TableName, typename T , typename... Indices>
-template<Name::Raw IndexName, typename Extractor , uint64_t Number, typename IndexTypeName >
-static uint64_t platon::db::MultiIndex< TableName, T, Indices >::Index< IndexName, Extractor, Number, IndexTypeName >::table_name ()`
+    ```cpp
+      struct Member {
+      std::string name;
+      uint8_t age;
+      uint8_t sex;
+      uint64_t $seq_;
+      std::string Name() const { return name; }
+      uint8_t Age() const { return age; }
+      PLATON_SERIALIZE(Member, (name)(age)(sex))
+    };
+    MultiIndex<
+      "table"_n, Member,
+      IndexedBy<"index"_n, IndexMemberFun<Member, std::string, &Member::Name,
+                                          IndexType::UniqueIndex>>,
+      IndexedBy<"index2"_n, IndexMemberFun<Member, uint8_t, &Member::Age,
+                                          IndexType::NormalIndex>>>
+      member_table;
+    for (auto it = member_table.cbegin(); it != it_end; ++it){}
+    ```
 
-  * `template<Name::Raw TableName, typename T , typename... Indices>
-template<Name::Raw IndexName, typename Extractor , uint64_t Number, typename IndexTypeName >
-static bool platon::db::MultiIndex< TableName, T, Indices >::Index< IndexName, Extractor, Number, IndexTypeName >::unique ( )`
+  * `template<Name::Raw TableName, typename T , typename... Indices> template<Name::Raw IndexName, typename KEY > size_t platon::db::MultiIndex< TableName, T, Indices >::count(const KEY &key)`
+
+    * **返回值**
+      * 获取与索引值对应的数据的数量
+    * **示例：**
+
+    ```cpp
+    struct Member {
+    std::string name;
+    uint8_t age;
+    uint8_t sex;
+    uint64_t $seq_;
+    std::string Name() const { return name; }
+    uint8_t Age() const { return age; }
+    PLATON_SERIALIZE(Member, (name)(age)(sex))
+    };
+    MultiIndex<
+    "table"_n, Member,
+      IndexedBy<"index"_n, IndexMemberFun<Member, std::string, &Member::Name,
+                                        IndexType::UniqueIndex>>,
+    IndexedBy<"index2"_n, IndexMemberFun<Member, uint8_t, &Member::Age,
+                                          IndexType::NormalIndex>>>
+    member_table;
+    auto count = member_table.count<"index2"_n>(uint8_t(10));
+    ```
+
+  * `template<Name::Raw TableName, typename T , typename... Indices> template<typename Lambda> std::pair<const_iterator, bool> platon::db::MultiIndex< TableName, T, Indices >::emplace(Lambda &constructor)`
+
+    * **参数**
+      * 数据项处理函数
+    * **返回值**
+      * 返回一个迭代器，该迭代器指示使用bool类型的插入是否成功。如果惟一索引冲突，则插入失败
+    * **示例：**
+
+    ```cpp
+    struct Member {
+      std::string name;
+      uint8_t age;
+      uint8_t sex;
+      uint64_t $seq_;
+      std::string Name() const { return name; }
+      uint8_t Age() const { return age; }
+      PLATON_SERIALIZE(Member, (name)(age)(sex))
+    };
+    MultiIndex<
+      "table"_n, Member,
+      IndexedBy<"index"_n, IndexMemberFun<Member, std::string, &Member::Name,
+                                          IndexType::UniqueIndex>>,
+      IndexedBy<"index2"_n, IndexMemberFun<Member, uint8_t, &Member::Age,
+                                          IndexType::NormalIndex>>>
+      member_table;
+    member_table.emplace([&](auto &m) {
+      m.age = 10;
+      m.name = "hello";
+      m.sex = 1;
+    });
+    ```
+
+  * `template<Name::Raw TableName, typename T , typename... Indices> void platon::db::MultiIndex< TableName, T, Indices >::erase(const_iterator position)`
+基于迭代器删除数据
+
+    * **参数**
+      * `position：`迭代器
+    * **示例：**
+
+    ```cpp
+    struct Member {
+    std::string name;
+    uint8_t age;
+    uint8_t sex;
+    uint64_t $seq_;
+    std::string Name() const { return name; }
+    uint8_t Age() const { return age; }
+    PLATON_SERIALIZE(Member, (name)(age)(sex))
+    };
+    MultiIndex<
+    "table"_n, Member,
+    IndexedBy<"index"_n, IndexMemberFun<Member, std::string, &Member::Name,
+                                      IndexType::UniqueIndex>>,
+    IndexedBy<"index2"_n, IndexMemberFun<Member, uint8_t, &Member::Age,
+                                        IndexType::NormalIndex>>>
+    member_table;
+    auto vect_iter = member_table.find<"index2"_n>(uint8_t(10));
+    member_table.erase(vect_iter[0]);
+    ```
+
+  * `template<Name::Raw TableName, typename T , typename... Indices> template<Name::Raw IndexName, typename KEY > const_iterator platon::db::MultiIndex< TableName, T, Indices >::find(const KEY & key)`
+找到数据，只有一个唯一的索引是可用的。
+
+    * **参数**
+      * `key：`索引值
+    * **返回值**
+      * 结果迭代器。如果没有找到值为cend()。
+    * **示例：**
+
+    ```cpp
+    struct Member {
+    std::string name;
+    uint8_t age;
+    uint8_t sex;
+    uint64_t $seq_;
+    std::string Name() const { return name; }
+    uint8_t Age() const { return age; }
+    PLATON_SERIALIZE(Member, (name)(age)(sex))
+    };
+    MultiIndex<
+    "table"_n, Member,
+      IndexedBy<"index"_n, IndexMemberFun<Member, std::string, &Member::Name,
+                                        IndexType::UniqueIndex>>,
+    IndexedBy<"index2"_n, IndexMemberFun<Member, uint8_t, &Member::Age,
+                                          IndexType::NormalIndex>>>
+    member_table;
+    auto vect_iter = member_table.find<"index2"_n>(uint8_t(10));
+    ```
+
+  * `template<Name::Raw TableName, typename T , typename... Indices> template<Name::Raw IndexName>auto platon::db::MultiIndex< TableName, T, Indices >::get_index()`
+获取非唯一索引的索引对象。
+
+    * **返回值**
+      * 索引对象
+    * **示例：**
+
+    ```cpp
+    struct Member {
+    std::string name;
+    uint8_t age;
+    uint8_t sex;
+    uint64_t $seq_;
+    std::string Name() const { return name; }
+    uint8_t Age() const { return age; }
+    PLATON_SERIALIZE(Member, (name)(age)(sex))
+    };
+    MultiIndex<
+    "table"_n, Member,
+      IndexedBy<"index"_n, IndexMemberFun<Member, std::string, &Member::Name,
+                                        IndexType::UniqueIndex>>,
+    IndexedBy<"index2"_n, IndexMemberFun<Member, uint8_t, &Member::Age,
+                                          IndexType::NormalIndex>>>
+    member_table;
+    auto index = member_table.get_index<"index2"_n>();
+    ```
+
+  * `template<Name::Raw TableName, typename T , typename... Indices> template<typename Lambda >void platon::db::MultiIndex< TableName, T, Indices >::modify(const_iterator position,Lambda && constructor)`
+基于迭代器修改数据，但不能修改所有与索引相关的字段。
+
+    * **参数**
+      * `position：`迭代器
+      * `constructor：`更新目标对象的lambda函数
+    * **示例：**
+
+    ```cpp
+    struct Member {
+    std::string name;
+    uint8_t age;
+    uint8_t sex;
+    uint64_t $seq_;
+    std::string Name() const { return name; }
+    uint8_t Age() const { return age; }
+    PLATON_SERIALIZE(Member, (name)(age)(sex))
+    };
+    MultiIndex<
+    "table"_n, Member,
+      IndexedBy<"index"_n, IndexMemberFun<Member, std::string, &Member::Name,
+                                        IndexType::UniqueIndex>>,
+    IndexedBy<"index2"_n, IndexMemberFun<Member, uint8_t, &Member::Age,
+                                          IndexType::NormalIndex>>>
+    member_table;
+    member_table.modify(r.first, [&](auto &m) { m.sex = 15; });
+    ```
 
 ## 合约API
 
